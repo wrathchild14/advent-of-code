@@ -1,16 +1,24 @@
-with open('simple-input') as f:
+with open('input') as f:
     lines = f.readlines()
 
-
-line = lines[0]
-
-
-
-open_list = ["[","{","("]
-close_list = ["]","}",")"]
+open_list = ["[", "{", "(", "<"]
+close_list = ["]", "}", ")", ">"]
+score = 0
+scores = {
+    ")": 3,
+    "]": 57,
+    "}": 1197,
+    ">": 25137
+}
+'''
+): 3 points.
+]: 57 points.
+}: 1197 points.
+>: 25137 points.
+'''
   
-# Function to check parentheses with a stack
-def check(myStr):
+# Function get score of parentheses with a stack
+def get_score(myStr):
     stack = []
     for i in myStr:
         if i in open_list:
@@ -21,11 +29,15 @@ def check(myStr):
                 (open_list[pos] == stack[len(stack)-1])):
                 stack.pop()
             else:
-                return "Unbalanced"
+                return scores[i]
     if len(stack) == 0:
-        return "Balanced"
+        return 0
     else:
-        return "Unbalanced"
+        return 0
+        # print("what")
     
 
-print(check(line))
+for line in lines:
+    score += get_score(line)
+
+print(score)
